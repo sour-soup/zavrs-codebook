@@ -1,0 +1,8 @@
+$$s_1[i] = \begin{cases} 0, & \mbox{if } s_i\mbox{ is a wildcard} \\ ord(s_i), & \mbox{otherwise } \end{cases}$$
+
+$$s_2[i] = s_1[i]^2$$
+$$s_3[i] = s_1[i]^3$$
+
+Same for $t$, reverse $t_1, t_2$ and $t_3$.
+
+There is an occurence on $i$ if $(s_1 \cdot t_3)[i] - 2 \cdot (s_2 \cdot t_2)[i] + (s_3 \cdot t_1)[i] = 0$.

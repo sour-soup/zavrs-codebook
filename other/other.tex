@@ -1,0 +1,154 @@
+\textbf{Элементарная тригонометрия:}
+
+$\sin(\alpha\pm\beta)=\sin\alpha\cos\beta\pm\cos\alpha\sin\beta$;
+$\cos(\alpha\pm\beta)=\cos\alpha\cos\beta\mp\sin\alpha\sin\beta$;
+$\tan(\alpha\pm\beta)=\frac{\tan\alpha\pm\tan\beta}{1\mp\tan\alpha\tan\beta}$;
+
+$\sin\alpha\cos\beta=\frac{1}{2}(\sin(\alpha+\beta)+sin(\alpha-\beta))$;
+$\sin\alpha\sin\beta=\frac{1}{2}(\cos(\alpha-\beta)-cos(\alpha+\beta))$;
+
+$\cos\alpha\cos\beta=\frac{1}{2}(\cos(\alpha-\beta)+cos(\alpha+\beta))$;
+$\sin\alpha\pm\sin\beta=2\sin\frac{\alpha\pm\beta}{2}\cos\frac{\alpha\mp\beta}{2}$;
+$\cos\alpha-\cos\beta=-2\sin\frac{\alpha+\beta}{2}\sin\frac{\alpha-\beta}{2}$;
+
+$\cos\alpha+\cos\beta=2\cos\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$;
+$\tan\alpha\pm\tan\beta=\frac{\sin(\alpha\pm\beta)}{\cos\alpha\cos\beta}$;
+$\cot\alpha\pm\cot\beta=\frac{\sin(\beta\pm\alpha)}{\sin\alpha\sin\beta}$
+
+\textbf{Волшебная сумма:}
+$\sum\limits_{0\le k < m} \lfloor \frac{nk+x}m \rfloor = \sum\limits_{0\le k < n} \lfloor \frac{mk+x}n \rfloor = d\lfloor \frac xd \rfloor +
+\frac{(m-1)(n-1)}2 +\frac{d-1}2$, $d = (n, m)$.
+
+\textbf{Суммирование по частям:}
+
+$\Delta f(x)=f(x+1)-f(x), E f(x)=f(x+1) \Rightarrow \sum u\Delta v=uv-\sum Ev\Delta u$,
+
+$\Delta x^{\underline{m}}=m x^{\underline{m-1}}, \Delta c^x=(c-1)c^x, \Delta (af+bg)=a\Delta f+b\Delta g, \Delta fg=f\Delta g+Eg\Delta f$.
+
+\textbf{Формулы округлений:}
+
+$\lfloor x \rfloor=n \Leftrightarrow n\le x < n+1 \Leftrightarrow x-1<n\le x$,
+$\lceil x \rceil=n \Leftrightarrow n-1<x\le n \Leftrightarrow x\le n < x+1$,
+
+$x<n\Leftrightarrow \lfloor x\rfloor < n$,
+$n<x\Leftrightarrow n<\lceil x \rceil$,
+$x\le n \Leftrightarrow \lceil x \rceil \le n$,
+$n\le x \Leftrightarrow n\le \lfloor x \rfloor$.
+
+
+\textbf{Теорема Пика:} Для многоугольника без самопересечений с целочисленными вершинами имеем:
+$\displaystyle S = I + \frac{B}2 - 1$, где $S$ --- площадь, $I$ --- количество целочисленных точек внутри,
+$B$ --- количество целочисленных точек на границе.
+
+\textbf{Интерполяционный многочлен Лагранжа:}
+
+Заданы пары значений $(x_i,y_i)\ (i=\overline{0,n})$ --- узел и значение функции в узле. Тогда существует единственный многочлен
+степени не более $n$ принимающий значения $y_i$ в узлах $x_i$:
+$f(x)=\sum\limits_{i=0}^n y_i \prod\limits_{j=0,j\ne i}^n \frac{x-x_j}{x_i-x_j}$
+
+
+\textbf{Интерполяционный многочлен Ньютона:}
+
+Заданы пары значений $(x_i,y_i)\ (i=\overline{0,n})$ --- узел и значение функции в узле.
+
+Определим разделенные разности вперед: $[y_{\nu}]:=y_{\nu} (\nu=\overline{0,n});$
+
+$[y_{\nu}, \ldots, y_{\nu+j}]:=\frac{[y_{\nu+1},\ldots,y_{\nu+j}] - [y_{\nu},\ldots,y_{\nu+j-1}]}{x_{\nu+j}-x_{\nu}} (\nu=\overline{0,\ldots,n-j},j=\overline{1,\ldots,n})$.
+
+$f(x)=\sum\limits_{i=0}^{n}[y_0,\dots,y_i]\prod\limits_{j=0}^{i-1}(x-x_j)$.
+
+Если пары значений $(i, f_i)$, то можно записать как $P_n(x) = \sum\limits_{m = 0}^{n} {x^{\underline{m}}d_m}$.
+Где $d_m = \sum\limits_{k = 0}^{m} {\frac{f_k}{k!} \cdot \frac{(-1)^{m-k}}{(m-k)!}}$. Тогда $A = \sum\limits_{m=0}^{n} {\frac{f_m}{m!}}$,
+$B = \sum\limits_{m=0}^{n} {\frac{(-1)^m}{m!}}$ и $[d_m] = A \times B$. 
+
+Нужны только $n + 1$ первых элементов, остальные занулить. Значение в точке: $P(k) = \sum\limits_{m=0}^{n} {k^{\underline{m}} d_m} = \sum\limits_{m=0}^{k} {\frac{k!}{(k - m)!} \cdot d_m}$.
+Если $C = \sum\limits_{m=0}^{k} {\frac{1}{m!}}$, то $P(k) = k! \cdot [[d_m] \times C]_k$
+
+
+\textbf{Криволинейный интеграл первого рода:}
+
+Пусть $l$ --- гладкая, спрямляемая (имеет конечную длину) кривая, заданная параметрически: $x = x(t), y = y(t), z = z(t)$.
+Пусть $f(x, y, z)$ определена и интегрируема вдоль кривой $l$. Тогда:
+$$
+	\int\limits_l f(x, y, z)dl = \int\limits_a^b f(x(t), y(t), z(t)) \sqrt{\dot{x}^2 + \dot{y}^2 + \dot{z}^2} dt
+$$
+Здесь точка --- это производная по $t$. На плоскости удобно вводить параметризацию: $x = t, y = y(t)$.
+Для вычисления длины кривой нужно положить $f(x, y, z) \equiv 1$.
+
+\textbf{Поверхностный интеграл первого рода:}
+
+Пусть на поверхности $\Phi$ можно ввести единую параметризацию посредством функций $x = x(u, v), y = y(u, v), z = z(u, v)$,
+заданных в ограниченной области $\Omega$ плоскости $(u,v)$ и принадлежащих классу $C^1$ (непрерывнодифференцируемых) в этой области.
+Если функция $f(M) = f(x, y, z)$ непрерывна на поверхности $\Phi$, то поверхностный интеграл первого рода от этой функции по поверхности $\Phi$
+существует и может быть вычислен по формуле:
+$$
+	\iint\limits_{\Phi}f(M)d\sigma = \iint\limits_{\Omega} f(x(u, v), y(u, v), z(u, v)) \sqrt{EG - F^2} du dv
+$$
+где $E = (x'_u)^2 + (y'_u)^2 + (z'_u)^2, F = x'_u x'_v + y'_u y'_v + z'_u z'_v, G = (x'_v)^2 + (y'_v)^2 + (z'_v)^2$.
+
+\textbf{Теорема Безу:}
+Остаток от деления многочлена $P(x)$ на двучлен $(x - a)$ равен $P(a)$.
+
+\textbf{Теорема Байеса:}
+
+$\displaystyle P(A|B)=\frac{P(B|A)P(A)}{P(B)}$, где $P(A|B)$ - вероятность наступления $A$, если уже наступило $B$
+
+\textbf{Неприводимые многочлены:}
+
+Количество неприводимых многочленов (неразложимых на произведение) степени $n$ в поле по простому модулю $p$ равно:
+$cnt = \frac1n \sum\limits_{d|n}\mu(d)p^{n / d}$.
+
+\textbf{Коды Грея:}
+
+Код Грея --- это такая перестановка битовых строк длины $n$, что каждая следующая отличается от предыдущей ровно в одном бите.
+$n$-й код Грея соответствует гамильтонову циклу вдоль вершин $n$-го куба.
+
+\begin{verbatim}
+int g (int n) { return n ^ (n >> 1); }
+\end{verbatim}
+
+\textbf{НОД многочлена и его производной}
+
+$deg(p) = deg( GCD(p(x), p'(x)) ) + k(p)$, где $k(p)$ --- количество различных корней.
+
+$p(x) = c \cdot (x - a_0)^{n_0} \cdot (x - a_1)^{n_1} \cdot \ldots \cdot (x - a_k)^{n_k}$
+
+$p'(x) = c \cdot [ (x - a_0)^{n_0-1} \cdot (x - a_1)^{n_1} \cdot \ldots \cdot (x - a_k)^{n_k} + (x - a_0)^{n_0} \cdot (x - a_1)^{n_1-1} \cdot \ldots \cdot (x - a_k)^{n_k} + (x - a_0)^{n_0} \cdot (x - a_1)^{n_1} \cdot \ldots \cdot (x - a_k)^{n_k-1} ]$
+
+$GCD(p(x),p'(x)) = c \cdot (x - a_0)^{n_0-1} \cdot (x - a_1)^{n_1-1} \cdot \ldots \cdot (x - a_k)^{n_k-1}$
+
+\textbf{Метод касательных Ньютона:}
+
+Для решения уравнения $f(x)=0$ будем проводить итерации: $x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}$, где $x_n$ --- $n$-е приближение решения.
+В качестве $x_0$ можно выбрать любое значение, но для улучшения скорости сходимости лучше выбрать $x_0$ близким к искомому решению.
+
+\textbf{Метод простой итерации (в матричном виде):} $x=(A+E)x-b$.
+
+\textbf{Метод наименьших квадратов:}
+Решает для $n$ точек задачу вида $\sum \limits_{i=1}^{n} \left ( ax_i + b - y_i \right )^2\rightarrow min$. Решением задачи является
+$a=\frac{n\sum \limits_{i=1}^{n} x_i y_i - \sum \limits_{i=1}^{n} x_i \sum \limits_{i=1}^{n} y_i}{n\sum \limits_{i=1}^{n} x_i^2 - \left ( \sum \limits_{i=1}^{n} x_i \right )^2}$,
+$b=\frac{\sum \limits_{i=1}^{n} y_i - a \sum \limits_{i=1}^{n} x_i}{n}$.
+
+\textbf{Обратная польская нотация:}
+Левоассоциативные операции (т.е. те, которые в случае равенства приоритета выполняются слева направо, например, $+$, $-$, $*$)
+выталкивают из стека операции с $\geq$ приоритетом. Правоассоциативные (например, возведение в степень) выталкивают операции
+с $>$ приоритетом. Унарные операции удобно предварительно заменить специальными символами, они имеют наибольший приоритет и
+зачастую считаются правоассоциативными. Открывающаяся скобка просто помещается в стек, а закрывающаяся выталкивает все
+операции, пока не встретит открывающуюся.
+
+\textbf{Формула Райзера для перманента:}
+$Per(A)=(-1)^n\sum\limits_{S\subseteq \{1, \ldots , n\}}(-1)^{|S|}\prod\limits_{i=1}^n\sum\limits_{j\in S}a_{ij}$.
+
+\textbf{Рюкзак на маленьких весах:}
+Задан набор чисел $A_i$, а также набор чисел $x_i$. Для каждого $x_i$ необходимо определить можно ли его набрать числами из набора $A_i$, причем каждое $A_i$ можно брать
+более одного раза. Для решения этой задачи зафиксируем произвольное число из набора, например можно зафиксировать минимальное среди них  $c := A_0$. Теперь посчитаем величины
+$d_i$ --- наименьшяя сумма, которую можно набрать числами из набора $A_i$, такая что остаток этой суммы по модулю $c$ равен $i$ (это можно сделать например алгоритмом
+Дейкстры, хотя граф весьма специфичен и можно это делать быстрее). Теперь проверка числа $x_i$ сводится к проверке неравенства $d[x_i \mod c] \le x_i$.
+
+\textbf{Пятнашки}
+
+Пусть $a_i$ --- перестановка чисел от $0$ до $15$ (в порядке сверху-вниз, слева-направо),
+$N$ --- количество инверсий в $a$, $K = \lfloor\frac{z - 1}4\rfloor + 1$ --- номер строки с нулем,
+где $z$ --- $1$-индексированный номер позиции нуля в $a$. Тогда решение существует тогда и только
+тогда, когда $N + K$ четно.
+

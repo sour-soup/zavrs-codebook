@@ -1,0 +1,10 @@
+\begin{verbatim}
+for every point:
+  initialize this point's cell as the bounding box
+  for every previous point:
+    try to intersect the previous point's cell 
+    - with the halfplane between them
+    if it changed this previous point's cell then:
+      intersect this point's cell with the 
+      - halfplane between them
+\end{verbatim}
