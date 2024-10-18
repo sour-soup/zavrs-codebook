@@ -1,9 +1,9 @@
-void tangents(point c, ld r1, ld r2, vector<line>& ans) {
+void tangents(vec c, ld r1, ld r2, vector<line>& ans) {
 	ld r = r2 - r1;
 	ld z = sqr(c.x) + sqr(c.y);
 	ld d = z - sqr(r);
 	if (d < -EPS) return;
-	d = sqrtl(fabsl(d));
+	d = sqrtl(abs(d));
 	line l;
 	l.a = (c.x * r + c.y * d) / z;
 	l.b = (c.y * r - c.x * d) / z;
