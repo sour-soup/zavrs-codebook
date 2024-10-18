@@ -1,17 +1,23 @@
-vector<pt> minkowski_sum(vector<pt> &a, vector<pt> &b) {
-	int n = (int)a.size(), m = (int)b.size();
-	int i = 0, j = 0; //assuming a[i] and b[j] both are (left, bottom)-most points
-	vector<pt> c;
-	c.push_back(a[i] + b[j]);
-	while (i + 1 < n || j + 1 < m){
-		pt p1 = a[i] + b[(j + 1) % m];
-		pt p2 = a[(i + 1) % n] + b[j];
-		int t = orientation(c.back(), p1, p2);
-		if (t >= 0) j = (j + 1) % m;
-		if (t <= 0) i = (i + 1) % n, p1 = p2;
-		if (t == 0) p1 = a[i] + b[j];
-		if (p1 == c[0]) break;
-		c.push_back(p1);
+void reorder_polygon(vector<vec>& P) {
+	auto mn = min_element(all(P), [](auto l, auto r) {
+		return l.y < r.y or (l.y == r.y and l.x < r.x);
+	});
+	rotate(P.begin(), mn, P.end());
+}
+
+vector<vec> minkowski(vector<vec> P, vector<vec> Q) {
+	reorder_polygon(P); reorder_polygon(Q);
+	P.push_back(P[0]); P.push_back(P[1]);
+	Q.push_back(Q[0]); Q.push_back(Q[1]);
+	vector<vec> result;
+	int i = 0, j = 0;
+	while (i < P.size() - 2 || j < Q.size() - 2) {
+		result.push_back(P[i] + Q[j]);
+		auto cross = (P[i + 1] - P[i]) % (Q[j + 1] - Q[j]);
+		if (cross >= 0 && i < P.size() - 2)
+			++i;
+		if (cross <= 0 && j < Q.size() - 2)
+			++j;
 	}
-	return c;
+	return result;
 }
