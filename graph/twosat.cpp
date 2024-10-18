@@ -1,29 +1,59 @@
-struct twosat {
-	int n;
-	digraph g;
-	vector<bool> vals;
-	twosat(int n = 0) : n(n), g(2 * n) {
-		vals.resize(n);
+vector<vector<int>>g, gt;
+vector<int>used;
+vector<int>order;
+vector<int>color;
+void add_or(int x, int y) {
+	g[x ^ 1].pb(y);
+	g[y ^ 1].pb(x);
+	gt[y].pb(x ^ 1);
+	gt[x].pb(y ^ 1);
+}
+void add_im(int x, int y) {
+	add_or(x ^ 1, y);
+}
+void add_xor0(int u, int v) {
+	add_or(2 * u, 2 * v + 1);
+	add_or(2 * u + 1, 2 * v);
+}
+void add_xor1(int u, int v) {
+	add_or(2 * u, 2 * v);
+	add_or(2 * u + 1, 2 * v + 1);
+}
+void topsort(int x) {
+	used[x] = true;
+	for (auto y : g[x])
+		if (!used[y]) topsort(y);
+	order.pb(x);
+}
+void css(int x, int col) {
+	color[x] = col;
+	for (auto y : gt[x]) {
+		if (!color[y]) css(y, col);
 	}
-	void either(int x, int y) {
-		x = max(2 * x, -1 - 2 * x);
-		y = max(2 * y, -1 - 2 * y);
-		g.add_edge(x ^ 1, y);
-		g.add_edge(y ^ 1, x);
+}
+
+void init(int n) {
+	order.clear();
+	g.assign(2 * n, {});
+	gt.assign(2 * n, {});
+	used.assign(2 * n, 0);
+	color.assign(2 * n, 0);
+}
+int32_t main() {
+	/// строим граф ///
+	forn(i, 2 * n) if (!used[i]) {
+		topsort(i);
 	}
-	void implies(int x, int y) {
-		either(~x, y);
+	reverse(all(order));
+	int col = 1;
+	for (auto x : order) if (!color[x]) {
+		css(x, col++);
 	}
-	void must(int x) {
-		either(x, x);
-	}	
-	bool solve() {
-		auto comp = scc(g).comp;
-		forn(i, n) {
-			if (comp[2 * i] == comp[2 * i + 1])
-				return false;
-			vals[i] = (comp[2 * i] < comp[2 * i + 1]);
+	forn(i, n) {
+		if (color[2 * i] == color[2 * i + 1]) {
+			cout << "FALSE" << endl;
+			return;
 		}
-		return true;
+		// нужно перебрать < и > //
 	}
-};
+}
