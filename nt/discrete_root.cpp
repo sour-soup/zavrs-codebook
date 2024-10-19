@@ -1,4 +1,4 @@
-vector<int> roots(int a, int mod){
+vector<int> roots(int a, int k, int mod){
 	if (a == 0) return {0};
 	int g = generator(mod); // primitive root
 	// Baby-step giant-step discrete logarithm algorithm
