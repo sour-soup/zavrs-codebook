@@ -104,6 +104,8 @@ literate={\ \ }{{\ }}1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage
 
+% ВАЖНО!
+% Для полуфинала максимальное количество страниц <= 25. (на момент 24 года).
 
 \section{Basic}
 \code{Pragma optimization}{basic/pragma.cpp}
@@ -133,10 +135,9 @@ literate={\ \ }{{\ }}1
 \codewithtext{Discrete Root}{nt/discrete\_root.cpp}{Найти все $x$: $x^k \equiv a\; (\text{mod}\;n)$}  %пусть болтается
 \codewithtext{Discrete log}{nt/discreteLog.cpp}{$a^x \equiv  b\; (\text{mod}\;m)$}
 \codewithtext{Diophantine Equations}{nt/diophantine.cpp}{solutions to $ax + by = c$ where $x \in [xlow, xhigh]$ and $y \in [ylow, yhigh]$; returns \{cnt, leftsol, rightsol, gcd of a and b\}}
-\code{Stern-Brocot Tree}{nt/stern-brocot.cpp} %можно переписать
+\tex{Stern-Brocot Tree}{nt/sternBrocot.tex}
 \codewithtext{Lattice Points Below Line}{nt/lattice\_points.cpp}{Number of integer points $(x;y)$ such for $0 \leq x < n$ and $0 < y \leq \lfloor k x+b\rfloor$}
 %добавить структуру для рациональных чисел
-
 
 \section{Graph Theory}
 \code{Biconnected Components}{graph/bicon.cpp} %переписать
