@@ -164,9 +164,11 @@ literate={\ \ }{{\ }}1
 %следующее оставляем как черный ящик, если что, удалим
 \codewithtext{MCMF with Potentials}{flows/mcmf\_potentials.cpp}{call init\_dag() or init\_fb() (depending on if your graph is dag or not) before running calc()} 
 \tex{L-R Flow}{flows/lrflow.tex}
-\code{Stoer Wagner Algorithm}{flows/stoer-wagner.cpp} %нужно написать разъяснения, ограничение и время
-\code{Hungarian Algorithm}{flows/hungarian.cpp} %нужно написать че делает
-\code{Blossom Algorithm}{flows/blossom.cpp} %нужно написать че делает
+\codewithtext{Stoer Wagner Algorithm}{flows/stoer-wagner.cpp}
+{Находит мин разрез в неориентированном взвешенном графе. Работает за $O(nm)$.} %нужно написать разъяснения, ограничение и время
+% \code{Hungarian Algorithm}{flows/hungarian.cpp}
+% нужно написать че делает
+% \code{Blossom Algorithm}{flows/blossom.cpp} 
 %нужно добавить задачу про проекты и инструменты
 
 
@@ -191,13 +193,20 @@ literate={\ \ }{{\ }}1
 
 
 \section{DP}
-\code{Dynamic CHT}{dp/cht.cpp} %пояснить че делает
-\code{Li Chao Tree}{dp/lichao.cpp} %надо бы разобраться
-\code{D\&C Optimization}{dp/dnc.cpp} %надо написать условия
-%нужно переписать условие
-\codewithtext{Knuth Optimization}{dp/knuth.cpp}{Достаточное условие: 1. $C_{ac}+C_{bd}\le C_{ad}+C_{bc}$, 2. $C_{bc}\le C_{ad}$, при всех $a\le b\le c\le d$.}
+\codewithtext{Dynamic CHT}{dp/cht.cpp}
+{Хранит линейные функции и умеет узнавать мин/макс значение от всех функций в точке. $O(logN) на запрос$}
+\codewithtext{Li Chao Tree}{dp/lichao.cpp}
+{Хранит функции, которые могут пересекаться друг с другом максимум $1$ раз (напр. прямые, параболы). Узнает мин/макс значение от всех функции в точке. $O(logN)$.} %надо бы разобраться
+\codewithtext{D\&C Optimization}{dp/dnc.cpp}
+{$dp[i][j] = \min_{0 \leq k \leq j} dp[i - 1][k - 1] + w(k, j)$. 
+
+Должно выполнятся условие $C(a,c) + C(b,d) \leq  C(a, d) + C(b, c)$ для всех $a \leq b \leq c \leq d$} 
+\codewithtext{Knuth Optimization}{dp/knuth.cpp}
+{$dp[i][j] = \min_{i \leq k \leq j}[dp[i][k] + dp[k + 1][j] + C(i, j)]$
+
+Достаточное условие: 1. $C_{ac}+C_{bd}\le C_{ad}+C_{bc}$, 2. $C_{bc}\le C_{ad}$, при всех $a\le b\le c\le d$.}
 %это надо переписать
-\codewithtext{Slope Trick}{dp/slope.cpp}{You are given an array, each operation you are allowed to increase or decrease an element's value by $1$. Find the minimum number of operations to make the array strictly increasing.}
+% \codewithtext{Slope Trick}{dp/slope.cpp}{You are given an array, each operation you are allowed to increase or decrease an element's value by $1$. Find the minimum number of operations to make the array strictly increasing.}
 %добавить лямбда оптимизацию
 \codewithtext{SOS DP}{dp/sosdp.cpp}
 {or-свертка:$c_i = \sum_{j,k:\,j | k = i} a_j \cdot b_k$. Нужно взять сумму по подмножествам пос-тей $a$ и $b$, перемножить поэлементно, а потом обратить суммы по подмножествам для этого произведения.
