@@ -1,68 +1,42 @@
-struct bicone {
-	const undigraph &g;
-	vector<bool> used;
-	int T;
-	vector<int> tin, fup;
-	int comps_count;
-	vector<int> st, comp;
+// bicone - edge, biconv - vertex
+vector<vector<int>>g, h, comp;
+vector<pair<int,int>> edg;
+vector<int>used, lvl, f, st;
+void add_comp(int sz) {
+	comp.pb({});
+  while(st.size() > sz){
+    comp.back().pb(st.back());
+    st.pop_back();
+}}
 
-	bicone(const undigraph& g) : g(g) {
-		used.resize(g.n, 0);
-		T = 0;
-		tin.resize(g.n);
-		fup.resize(g.n);
-		comps_count = 0;
-		// bicone
-		comp.resize(g.n);
-		// biconv
-		comp.resize(sz(g.edges));
-		forn(v, g.n) if (!used[v]) 
-			dfs(v);
-	}
-	
-	void add_comp(int t) {
-		while (sz(st) != t) {
-			comp[st.back()] = comps_count;
-			st.pop_back();
-		}
-		++comps_count;
-	}
-	
-	void dfs(int v, int p = -1) {
-		used[v] = true;
-		tin[v] = fup[v] = T++;
-		st.pb(v);
-		for (int i : g[v]) {
-			auto &e = g.edges[i];
-			int u = e.v ^ e.u ^ v;
-			if (u == p) continue;
-			// bicone
-			if (!used[u]) {
-				int t = sz(st);
+void dfs(int v, int p = -1) {
+	used[v] = true;
+	up[v] = lvl[v];
+  st.pb(v); //bicone
+	for (int i : g[v]){
+    int u = edg[i].first ^ edg[i].second ^ v;
+    if (u == p) continue;
+    if (!used[u]) { //bicone
+				int sz = st.size();
+        lvl[u] = lvl[v] + 1;
 				dfs(u, v);
-				fup[v] = min(fup[v], fup[u]);
+				up[v] = min(up[v], up[u]);
 				if (fup[u] > tin[v])
-					add_comp(t);
+					add_comp(sz);
 			} else {
-				fup[v] = min(fup[v], tin[u]);
-			}
-			// biconv
-			if (!used[u]) {
-				int t = sz(st);
-				st.pb(i);
-				dfs(u, v);
-				fup[v] = min(fup[v], fup[u]);
-				if (fup[u] >= tin[v])
-					add_comp(t);
-			} else {
-				if (tin[u] < tin[v])	
-					st.pb(i);
-				fup[v] = min(fup[v], tin[u]);
-			}
-		}
-		// bicone
-		if (p == -1) add_comp(0);
-		// biconv
-		if (p == -1 && sz(st) > 0) add_comp(0);
-	}
-};
+				up[v] = min(up[v], lvl[u]);
+			} 
+    if (!used[u]){ // biconv
+      int sz = st.size();
+      lvl[u] = lvl[v] + 1;
+      st.pb(i);
+      dfs(u, v);
+      if (up[u] >= lvl[v]) add_comp(sz);
+      up[u] = min(up[u], up[v]);
+    } else{
+      if (lvl[u] < lvl[v]) st.pb(i);
+      up[v] = min(up[v], lvl[u]);
+    }
+  }
+  if (p == -1 && !st.empty()) add_comp(0);
+}
