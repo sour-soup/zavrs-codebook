@@ -1,80 +1,67 @@
 struct node {
-	int key, prior;
-	int siz;
-	node *l, *r;
+	int y, val, cnt = 0, rev = 0;
+	node* l = 0;
+	node* r = 0;
+	node(int val) {
+		this->val = val;
+		y = mt();
+		cnt = 1;
+	}
 	node() {}
-	node(int key, int prior) : key(key), prior(prior), siz(1), l(NULL), r(NULL) {}
 };
-
-typedef node* tnode;
-typedef pair<tnode, tnode> ptt;
-
-int getsiz(tnode v) {
-	return v ? v->siz : 0;
+using treap = node*;
+ 
+const int N = 2e5 + 10;
+node buf[N];
+int siz = 0;
+treap new_node(int val) {
+	buf[siz] = node(val);
+	return &buf[siz++];
 }
-tnode fix(tnode v) {
-	if (!v) return v;
-	v->siz = getsiz(v->l) + 1 + getsiz(v->r);
-	return v;
+node get(treap t) {
+	if (!t) return node();
+	return *t;
 }
-ptt split(tnode t, int key) {
-	if (!t)
-		return mp(t, t);
-	ptt p;
-	if (key < t->key) {
-		p = split(t->l, key);
-		t->l = p.y;
-		return mp(p.x, fix(t));
-	} else {
-		p = split(t->r, key);
-		t->r = p.x;
-		return mp(fix(t), p.y);
+treap fix(treap t) {
+	if (!t) return 0;
+	t->cnt = get(t->l).cnt + get(t->r).cnt + 1; 
+	return t;
+}
+treap push(treap t) {
+	if (!t) return 0;
+	if (t->rev) {
+		swap(t->l, t->r);
+		if (t->l) t->l->rev ^= 1;
+		if (t->r) t->r->rev ^= 1;
+		t->rev = 0;
+	}
+	return t;
+}
+treap merge(treap a, treap b) {
+	if (!a) return b;
+	if (!b) return a;
+	a = push(a); b = push(b);
+	if (a->y > b->y) {
+		a->r = merge(a->r, b);
+		return fix(a);
+	}
+	else {
+		b->l = merge(a, b->l);
+		return fix(b);
 	}
 }
-tnode insert(tnode t, tnode it) {
-	if (!t)
-		return it;
-	if (it->prior > t->prior) {
-		ptt p = split(t, it->key);
-		it->l = p.x, it->r = p.y;
-		return fix(it);
-	} else if (it->key < t->key) {
-		t->l = insert(t->l, it);
-		return fix(t);
-	} else {
-		t->r = insert(t->r, it);
-		return fix(t);
+pair<treap, treap> split(treap t, int k) {
+	if (!t) return { 0, 0 };
+	t = push(t);
+	int cntl = get(t->l).cnt;
+	if (cntl < k) {
+		auto p = split(t->r, k - cntl - 1);
+		t->r = p.first;
+		return { fix(t), p.second };
 	}
-}
-tnode merge(tnode l, tnode r) {
-	if (!l || !r)
-		return l ? l : r;
-	if (l->prior > r->prior) {
-		l->r = merge(l->r, r);
-		return fix(l);
-	} else {
-		r->l = merge(l, r->l);
-		return fix(r);
+	else {
+		auto p = split(t->l, k);
+		t->l = p.second;
+		return { p.first, fix(t) };
 	}
-}
-tnode erase(tnode t, int key) {
-	if (t->key == key)
-		return merge(t->l, t->r);
-	if (key < t->key) {
-		t->l = erase(t->l, key);
-		return fix(t);
-	} else {
-		t->r = erase(t->r, key);
-		return fix(t);
-	}
-}
-tnode unite(tnode l, tnode r) {
-	if (!l || !r)
-		return l ? l : r;
-	if (l->prior < r->prior)
-		swap(l, r);
-	ptt p =	split(r, l->key);
-	l->l = unite(l->l, p.x);
-	l->r = unite(l->r, p.y);
-	return fix(l);
 }
