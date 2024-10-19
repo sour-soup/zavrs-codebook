@@ -1,50 +1,29 @@
-const int N = 1 << LOGN;
-int mat[2][2] = {{+1, +1}, {+1, +0}};
-int imt[2][2] = {{+0, +1}, {+1, -1}};
-bool divneed = 0;
-
-//XOR
-//Mat = {{+1, +1}, {+1, -1}}
-//iMt = {{+1, +1}, {+1, -1}}
-//det(Mt) = 2 -> divneed = 1
-//AND
-//Mat = {{+0, +1}, {+1, +1}}
-//iMt = {{-1, +1}, {+1, +0}}
-//det(Mt) = 1 -> divneed = 0;
-//OR
-//Mat = {{+1, +1}, {+1, +0}}
-//iMt = {{+0, +1}, {+1, -1}}
-//det(Mt) = 1 -> divneed = 0;
-
-inline void fwh(int a[N], int n, bool inv, int mod) {
-	for(int st = 0; (1 << st) < n; st++) {
-		int len = (1 << st);
-		for(int k = 0; k < n; k += (len << 1)) {
-			for(int pos = k; pos < k + len; pos++) {
-				int l = a[pos], r = a[pos + len];
-				if(!inv) {
-					a[pos]       = norm(mat[0][0] * l + mat[0][1] * r, mod);
-					a[pos + len] = norm(mat[1][0] * l + mat[1][1] * r, mod);
-				} else {
-					a[pos]       = norm(imt[0][0] * l + imt[0][1] * r, mod);
-					a[pos + len] = norm(imt[1][0] * l + imt[1][1] * r, mod);
-				}
-			}
-		}
-	}
-	if(divneed && inv) {
-		int in = binPow(n, mod - 2, mod);
-		forn(i, n) a[i] = mul(a[i], in, mod);
-	}
+vector<int> hadamard_transform(vector<int>& a) {
+    vector<int> dp = a;
+    for (size_t bit = 1; bit < a.size(); bit <<= 1)
+        for (size_t mask = 0; mask < a.size(); mask++) {
+            if ((mask & bit) == 0) {
+                int u = dp[mask], v = dp[mask ^ bit];
+                dp[mask] = u + v;
+                dp[mask ^ bit] = u - v;}
+    } return dp;
 }
-int aa[N], bb[N];
-inline void xorCon(int a[N], int b[N], int c[N], int logn, int mod) {
-	assert((1 << logn) <= N);
-	forn(i, 1 << logn)
-		aa[i] = a[i], bb[i] = b[i];
-	fwh(aa, 1 << logn, false, mod);
-	fwh(bb, 1 << logn, false, mod);
-	forn(mask, 1 << logn)
-		c[mask] = mul(aa[mask], bb[mask], mod);
-	fwh(c, 1 << logn, true, mod);
+vector<int> inverse_hadamard_transform(vector<int>& f) {
+    vector<int> dp = f;
+    for (size_t bit = 1; bit < f.size(); bit <<= 1)
+        for (size_t mask = 0; mask < f.size(); mask++) {
+            if ((mask & bit) == 0) {
+                int x = dp[mask], y = dp[mask ^ bit];
+                dp[mask] = (x + y) / 2;
+                dp[mask ^ bit] = (x - y) / 2;}
+    } return dp;
+}
+// a.size() == b.size() == 2^k
+vector<int> xor_convolution(vector<int>& a, vector<int>& b) {
+    vector<int> f = hadamard_transform(a);
+    vector<int> g = hadamard_transform(b);
+    vector<int> h(f.size());
+    for (size_t i = 0; i < f.size(); i++) h[i] = f[i] * g[i];
+    vector<int> c = inverse_hadamard_transform(h);
+    return c;
 }
