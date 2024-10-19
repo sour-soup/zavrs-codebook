@@ -1,11 +1,13 @@
-The number of labeled graphs with $n$ vertices is equal to: $G_n = 2^{\frac{n(n-1)}{2}}$.
+Кол-во помеченных различных графов с $N$ вершинами (вершины помечены различными числами от $1$ до $N$, и графы сравниваются с учётом этой покраски
+вершин) равно $G_n = 2^{\frac{n(n-1)}{2}}$. Рёбра графа неориентированы, петли и кратные рёбра запрещены.
 
-The number of connected graphs is: $C_n = G_n - \frac{1}{n} \sum \limits_{k=1}^{n-1} k \binom{n}{k} C_k G_{n-k}$.
+Кол-во связных помеченных графов $C_n = G_n - \frac{1}{n} \sum \limits_{k=1}^{n-1} k \binom{n}{k} C_k G_{n-k}$.
 
-$D[i][j]$ - the number of labeled graphs with $i$ vertices and $j$ components: $D[n][k] = \sum \limits_{s=1}^{n} \binom{n-1}{s-1} C_s D[n-s][k-1]$.
+$D[N][K]$ - кол-во помеченных графов с $N$ вершинами и $K$ компонентами: $D[n][k] = \sum \limits_{s=1}^{n} \binom{n-1}{s-1} C_s D[n-s][k-1]$.
 
-The number of labeled trees with $n$ vertices: $T_n = n^{n-2}$.
+Кол-во помеченных деревьев с $n$ вершинами: $T_n = n ^ {n - 2}$.
 
-The number of labeled forests with $n$ vertices and $k$ components: $F_{n,k} = k \cdot n^{n-k-1}$.
+Кол-во помеченных лесов с $n$ вершинами и $k$ компонентами:
+$F_{n,k} = k \cdot n^{n-k-1}$.
 
 The number of ways to complete a forest with components of sizes $a_1, a_2, \dots, a_k$ into a tree: $\prod \limits_{i=1}^k a_i \cdot \left(\sum \limits_{i=1}^k a_i \right)^{k-2}$
