@@ -156,9 +156,7 @@ literate={\ \ }{{\ }}1
 
 Если нечетных вершин ровно две, то соединим их ребром, построим эйлеров цикл, затем удалим это ребро из цикла. Если правильно сдвинуть этот цикл, получим эйлеров путь.
 }
-\code{Euler path}{graph/eulPath.cpp}
-\code{Boruvka}{graph/boruvka.cpp}
-
+% Добавить Борувко
 
 \section{Flows}
 \code{Dinics Algorithm}{flows/dinics.cpp}
@@ -201,7 +199,10 @@ literate={\ \ }{{\ }}1
 %это надо переписать
 \codewithtext{Slope Trick}{dp/slope.cpp}{You are given an array, each operation you are allowed to increase or decrease an element's value by $1$. Find the minimum number of operations to make the array strictly increasing.}
 %добавить лямбда оптимизацию
-\code{SOS DP}{dp/sosdp.cpp}
+\codewithtext{SOS DP}{dp/sosdp.cpp}
+{or-свертка:$c_i = \sum_{j,k:\,j | k = i} a_j \cdot b_k$. Нужно взять сумму по подмножествам пос-тей $a$ и $b$, перемножить поэлементно, а потом обратить суммы по подмножествам для этого произведения.
+
+and-свертка: $c_i = \sum_{j,k:\,j \& k = i} a_j \cdot b_k$. Нужно взять сумму по \textbf{над}множествам пос-тей $a$ и $b$, перемножить поэлементно, а потом обратить суммы по \textbf{над}множествам для этого произведения.}
 \code{Submasks}{dp/submasks.cpp}
 %добавить нвп бинпоиском
 
