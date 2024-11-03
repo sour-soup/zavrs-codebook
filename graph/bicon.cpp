@@ -31,12 +31,12 @@ void dfs(int v, int p = -1) {
       lvl[u] = lvl[v] + 1;
       st.pb(i);
       dfs(u, v);
-      if (up[u] >= lvl[v]) add_comp(sz);
       up[u] = min(up[u], up[v]);
-    } else{
+      if (up[u] >= lvl[v]){ add_comp(sz);
+      }else{
       if (lvl[u] < lvl[v]) st.pb(i);
       up[v] = min(up[v], lvl[u]);
-    }
+      }
   }
   if (p == -1 && !st.empty()) add_comp(0);
 }
