@@ -161,15 +161,16 @@ literate={\ \ }{{\ }}1
 
 \section{Flows}
 \code{Dinics Algorithm}{flows/dinics.cpp}
+\tex{Задача об инструментах}{flows/instruments.tex}
 \code{MCMF}{flows/mcmf.cpp}
 %следующее оставляем как черный ящик, если что, удалим
 \codewithtext{MCMF with Potentials}{flows/mcmf\_potentials.cpp}{call init\_dag() or init\_fb() (depending on if your graph is dag or not) before running calc()} 
 \tex{L-R Flow}{flows/lrflow.tex}
 \codewithtext{Stoer Wagner Algorithm}{flows/stoer-wagner.cpp}
 {Находит мин разрез в неориентированном взвешенном графе. Работает за $O(nm)$.}
-% \code{Hungarian Algorithm}{flows/hungarian.cpp}
+\code{Hungarian Algorithm}{flows/hungarian.cpp}
 % нужно написать че делает
-% \code{Blossom Algorithm}{flows/blossom.cpp} 
+\code{Blossom Algorithm}{flows/blossom.cpp} 
 %нужно добавить задачу про проекты и инструменты
 
 
@@ -207,7 +208,7 @@ literate={\ \ }{{\ }}1
 
 Достаточное условие: 1. $C_{ac}+C_{bd}\le C_{ad}+C_{bc}$, 2. $C_{bc}\le C_{ad}$, при всех $a\le b\le c\le d$.}
 %это надо переписать
-% \codewithtext{Slope Trick}{dp/slope.cpp}{You are given an array, each operation you are allowed to increase or decrease an element's value by $1$. Find the minimum number of operations to make the array strictly increasing.}
+\codewithtext{Slope Trick}{dp/slope.cpp}{You are given an array, each operation you are allowed to increase or decrease an element's value by $1$. Find the minimum number of operations to make the array strictly increasing.}
 %добавить лямбда оптимизацию
 \codewithtext{SOS DP}{dp/sosdp.cpp}
 {or-свертка:$c_i = \sum_{j,k:\,j | k = i} a_j \cdot b_k$. Нужно взять сумму по подмножествам пос-тей $a$ и $b$, перемножить поэлементно, а потом обратить суммы по подмножествам для этого произведения.
