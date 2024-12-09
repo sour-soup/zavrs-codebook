@@ -4,7 +4,7 @@ int orient(vec a, vec b, vec c) {
 }
 
 vector<vec> convex_hull(vector<vec> a) {
-	if (a.size() == 1)  return;
+	if (a.size() == 1)  return {}; 
 	sort(a.begin(), a.end());
 	vec p1 = a[0], p2 = a.back();
 	vector<vec> up, down;
@@ -25,7 +25,7 @@ vector<vec> convex_hull(vector<vec> a) {
 	a.clear();
 	forn(i, sz(up))
 		a.push_back(up[i]);
-	forn(i, sz(down))
+	for(int i = sz(down) - 2; i > 0; --i)
 		a.push_back(down[i]);
 	return a;
 }
