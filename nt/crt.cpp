@@ -1,3 +1,24 @@
+//Python
+def inv(x, y):
+    # inverse of x modulo y
+    # use Extended Euclidean Algo
+ 
+def CRT(a, m):
+    # receives array a[] and array m[]
+    # returns x such that x % m[i] == a[i]
+    n = len(a)
+    M = 1
+    for i in range(n):
+        M *= m[i] # on C++: check that M fits into long long
+    z = [M // m[i] for i in range(n)]
+    y = [z[i] * inv(z[i], m[i]) % M for i in range(n)]
+    # on C++: z[i] * int128(1) * inv(z[i])
+    x = 0
+    for i in range(n):
+        x = (x + y[i] * a[i]) % M
+    return x
+
+//C++
 template<typename T>
 struct CRT {
 	typedef pair<T, T> pt;
