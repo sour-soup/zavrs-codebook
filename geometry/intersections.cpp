@@ -1,3 +1,4 @@
+//Не обработаны случаи коллинеарности!
 //Пересечение отрезков
 bool intersec(vec a, vec b, vec c, vec d) {
 	if (sign((d - c) % (a - c)) == sign((d - c) % (b - c)))
