@@ -80,7 +80,7 @@ literate={\ \ }{{\ }}1
 
 \university{1}{Saratov State University}{SSU.png}
 \team{ZAVRS}{Eremenko, Utaliev, Yanchenko}
-\contest{Northern Eurasia Finals}{17.12.2025}
+\contest{Southern and Volga Russian Regional Contest}{10.11.2026}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -94,7 +94,7 @@ literate={\ \ }{{\ }}1
 
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\contentsname}{Northern Eurasia Finals 2025!!!} 
+%\renewcommand{\contentsname}{Southern and Volga Russian Regional Contest} 
 \scriptsize
 \begingroup
 \let\clearpage\relax
@@ -281,13 +281,6 @@ $dp[i]$ - это число, на которое оканчивается воз
 			\item \verb@for (int x = m; x; ) { --x &= m; ... }@ loops over all subset masks of \texttt{m} (except \texttt{m} itself).
 			\item \verb@c = x&-x, r = x+c; (((r^x) >> 2)/c) | r@ is the next number after \texttt{x} with the same number of bits set.
 			\item \verb@rep(b,0,K) rep(i,0,(1 << K))@ \\ \verb@  if (i & 1 << b) D[i] += D[i^(1 << b)];@ computes all sums of subsets.
-		\end{itemize}
-
-  \subsection{Pragmas}
-		\begin{itemize}
-			\item \lstinline{#pragma GCC optimize ("Ofast")} will make GCC auto-vectorize loops and optimizes floating points better.
-			\item \lstinline{#pragma GCC target ("avx2")} can double performance of vectorized code, but causes crashes on old machines.
-			\item \lstinline{#pragma GCC optimize ("trapv")} kills the program on integer overflows (but is really slow).
 		\end{itemize}
   
   \codewithtext{FastMod}{other/fastmod.cpp}{Compute $a \% b$ about 5 times faster than usual, where $b$ is constant but not known at compile time.
