@@ -18,6 +18,7 @@ int res(int i) {
 }
 	
 bool spfa() {
+	d.assign(sz(g), INF);
 	p.assign(sz(g), -1);
 	pe.assign(sz(g), -1);
 	queue<int>q;
@@ -62,10 +63,7 @@ int augment() {
 
 int min_cost() {
 	int flow = 0;
-	while (spfa()) {
-		d.assign(sz(g), INF);
-		if (!spfa()) break;
+	while (spfa())
 		flow += augment();
-	}
 	return flow;
 }

@@ -54,16 +54,11 @@ int dfs(int v, int mf) {
 
 int dinic() {
 	int flow = 0;
-	while (true)
-	{
-		if (!bfs()) break;
+	while (bfs()) {
 		lst.assign(sz(g), 0);
-		while (true)
-		{
-			int f = dfs(s, INF);
-			if (!f) break;
+		int f;
+		while ((f = dfs(s, INF)))
 			flow += f;
-		}
 	}
 	return flow;
 }
