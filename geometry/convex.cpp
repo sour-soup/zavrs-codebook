@@ -1,23 +1,22 @@
 // (-1) - clockwise, (1) - counterclockwise, (0) - collinear
 int orient(vec a, vec b, vec c) {
-	return sign(a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
+	return sign(a % b + b % c + c % a);
 }
 
 vector<vec> convex_hull(vector<vec> a) {
-	if (a.size() == 1)  return {}; 
-	sort(a.begin(), a.end());
-	vec p1 = a[0], p2 = a.back();
+	if (sz(a) <= 1) return {};
+	sort(all(a));
+	vec p1 = a.front(), p2 = a.back();
 	vector<vec> up, down;
-	up.push_back(p1);
-	down.push_back(p1);
+	up.pb(p1); down.pb(p1);
 	for (size_t i = 1; i < a.size(); ++i) {
-		if (i == a.size() - 1 || orient(p1, a[i], p2) < 0) {
-			while (up.size() >= 2 && orient(up[up.size() - 2], up[up.size() - 1], a[i]) >= 0)
+		if (i + 1 == sz(a) || orient(p1, a[i], p2) < 0) {
+			while (sz(up) >= 2 and orient(up[sz(up) - 2], up[sz(up) - 1], a[i]) >= 0)
 				up.pop_back();
 			up.push_back(a[i]);
 		}
-		if (i == a.size() - 1 || orient(p1, a[i], p2) > 0) {
-			while (down.size() >= 2 && orient(down[down.size() - 2], down[down.size() - 1], a[i]) <= 0)
+		if (i + 1 == sz(a) || orient(p1, a[i], p2) > 0) {
+			while (sz(down) >= 2 and orient(down[sz(down) - 2], down[sz(down) - 1], a[i]) <= 0)
 				down.pop_back();
 			down.push_back(a[i]);
 		}
