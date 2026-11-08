@@ -10,6 +10,6 @@ ld angle(vec a, vec b) { //Угол между векторами [0, pi]
 }
 
 ld angle(vec a, vec b) { // Угол между двумя точками на одной окружности (сфере)
-	ld z = 1 - euclid(a, b) / (2 * r * r);
+	ld z = 1 - (a - b) * (a - b) / (2 * r * r);
 	return acosl(max(-1.l, min(z, 1.l)));	
 }
