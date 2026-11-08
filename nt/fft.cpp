@@ -1,53 +1,72 @@
-// comp - struc of complex number
+using comp = complex<double>;
+
+const int LOGN = 19; // +1 от лога макс степени многочлена
 vector<comp> w[LOGN];
 vector<int> rv[LOGN];
+
 void prepare() {
-	forn(st, LOGN - 1) {
+	forn(st, LOGN) {
 		w[st].resize(1 << st);
 		forn(i, 1 << st) {
 			ld ang = PI / (1 << st) * i;
 			w[st][i] = comp(cosl(ang), sinl(ang));
-		}}
+		}
+	}
 	forn(st, LOGN) {
 		rv[st].resize(1 << st);
 		if (st > 0) {
 			int h = (1 << (st - 1)) - 1;
 			forn(i, 1 << st)
 				rv[st][i] = (rv[st - 1][i & h] << 1) | (i > h);
-}}}
-void fft(vector<comp> &a, bool inv) {
+		}
+	}
+}
+
+void fft(vector<comp>& a, bool inv) {
 	int n = sz(a);
-	int ln = __builtin_ctz(n);
+	int ln = countr_zero(uint(n));
 	forn(i, n) {
-		int ni = rv[ln][i];
-		if (i < ni) swap(a[i], a[ni]);
+		int j = rv[ln][i];
+		if (i < j) swap(a[i], a[j]);
 	}
 	forn(st, ln) {
 		int len = 1 << st;
-		for (int k = 0; k < n; k += (len << 1)) {
+		for(int k = 0; k < n; k += (len << 1)) {
 			fore(pos, k, k + len) {
-				comp l = a[pos];
-				comp r = a[pos + len] * w[st][pos - k];
-				a[pos] = l + r;
-				a[pos + len] = l - r;
-			}}}
-	if (inv) {
-		forn(i, n)
-			a[i] = a[i] / n;
-		reverse(a.begin() + 1, a.end());
-}}
-vector<ll> mul(vector<int> a, vector<int> b) {
-	int cnt = 1 << (32 - __builtin_clz(sz(a) + sz(b) - 1));
-	vector<comp> c(cnt), tmpa(cnt), tmpb(cnt);
-	forn(i, cnt) c[i] = comp(i < sz(a) ? a[i] : 0, i < sz(b) ? b[i] : 0);
-	fft(c, false);
-	forn(i, cnt) {
-		tmpa[i] = (c[i] + c[(cnt - i) % cnt].conj()) / comp(2, 0);
-		tmpb[i] = (c[i] - c[(cnt - i) % cnt].conj()) / comp(0, 2);
+				comp x = a[pos];
+				comp y = a[pos + len] * w[st][pos - k];
+				a[pos] = x + y;
+				a[pos + len] = x - y;
+			}
+		}
 	}
-	forn(i, cnt) c[i] = tmpa[i] * tmpb[i];
-	fft(c, true);
-	vector<ll> ans(cnt);
-	forn(i, cnt) ans[i] = llrint(c[i].x);
+	if (inv) {
+		reverse(a.begin() + 1, a.end());
+		forn(i, n) a[i] /= n;
+	}
+}
+
+vector<comp> mul(const vector<comp>& a, const vector<comp>& b) {
+	int n = 1 << (32 - countl_zero(uint(sz(a) + sz(b) - 1)));
+	vector<comp> aa = a;
+	vector<comp> bb = b;
+	aa.resize(n);
+	bb.resize(n);
+	fft(aa, 0);
+	fft(bb, 0);
+	vector<comp> c(n);
+	forn(i, n) c[i] = aa[i] * bb[i];
+	fft(c, 1);
+	return c;
+}
+
+vector<int> mul(const vector<int>& a, const vector<int>& b) {
+	vector<comp> aa(sz(a)), bb(sz(b));
+	forn(i, sz(a)) aa[i] = comp(a[i], 0);
+	forn(i, sz(b)) bb[i] = comp(b[i], 0);
+	vector<comp> c = mul(aa, bb);
+	vector<int> ans(sz(c));
+	forn(i, sz(c))
+		ans[i] = llrint(c[i].real());
 	return ans;
 }
