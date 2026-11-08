@@ -72,6 +72,15 @@ $x^{\overline{n}}=\sum\limits_k Z_n^k x^k$,
 $x^n=\sum\limits_k S_n^k (-1)^{n-k} x^{\overline{k}}$,
 $x^{\underline{n}}=\sum\limits_k Z_n^k (-1)^{n-k} x^k, n\in \mathbb{Z}, n \ge 0$.
 
+\textbf{Числа Белла:} количество возможных способов разбить множестов из $n$ элементов на непересекающиеся непустые подмножества. 
+
+$B(n + 1) = \sum_{k = 0}^n C_n^k B(k)$. 
+
+Для простого $p$:
+$$
+  B(p^m + n) \equiv mB(n) + B(n + 1) (\mod p)
+$$
+
 \textbf{Количество неубывающих последовательностей из $n$ элементов от $0$ до $a$ равно $\binom{n + a}{n}$.}
 
 \textbf{Перестановки без неподвижных точек:} $cnt = n! \sum\limits_{i = 0}^n \frac{(-1)^n}{i!} \approx \frac{n!}e$
@@ -87,4 +96,3 @@ $x^{\underline{n}}=\sum\limits_k Z_n^k (-1)^{n-k} x^k, n\in \mathbb{Z}, n \ge 0$
 \textbf{Теорема Каммера:}
 
 $n$, $m\in Z$, $n\geq  m\geq  0$ и $p$ --- простое число, тогда максимальная степень $k$, что $p^k | C_n^m$ равна количеству переносов при сложении чисел $m$ и $n - m$ в системе счисления $p$.
-

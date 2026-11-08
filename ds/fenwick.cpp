@@ -3,7 +3,7 @@
 int fenwick[N]; // fenwick array
 int fenwick_search(int v) {
 	int sum = 0;
-	int pos = 0;
+	int pos = -1;
 	for(int i=LOGN; i>=0; i--) {
 		if(pos + (1 << i) < N and sum + fenwick[pos + (1 << i)] < v) {
 			sum += fenwick[pos + (1 << i)];

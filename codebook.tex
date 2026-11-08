@@ -131,15 +131,22 @@ literate={\ \ }{{\ }}1
 {$c_i = \sum_{j,k:\,j \oplus k =i } a_j \cdot b_k$} %Код не проверен
 \code{Extended Euclid}{nt/exgcd.cpp}
 \tex{Burnside Lemma}{nt/burnside.tex}
-\code{Phi and Mobius}{nt/phimu.cpp}
+\codewithtext{Phi and Mobius}{nt/phimu.cpp}{$\mu(n)$ равно 0, если $n$ делится на квадрат какого-то простого числа, 1, если содержит честное число простых множителей, -1, если содержит нечётное число простых различных множителей.
+
+$\sum_{d|n}\mu(d) = [n == 1]$
+
+$g(n) = \sum_{d | n} f(d) \Leftrightarrow  f(n) = \sum_{d|n}\mu(d)g(n/d)$ 
+
+$g(n) = \sum_{n | d} f(d) \Leftrightarrow  f(n) = \sum_{n|d}\mu(d / n)g(d)$ 
+}
 \code{CRT}{nt/crt.cpp}
 \codewithtext{Pollard Rho}{nt/pollard.cpp}
-{Факторизация числа с малыми множителями в разложении. $O(N^{1/4})$}
-\code{Miller Rabin}{nt/miller.cpp}
-\code{Primitive Root}{nt/primitive.cpp}%пусть болтается
+{Факторизация числа с малыми множителями в разложении. Возвращает массив делителей в случайном порядке. $O(N^{1/4})$}
+\codewithtext{Miller Rabin}{nt/miller.cpp}{Проверка на простоту чисел до $7 \cdot 10^{18}$. Для больших чисел использовать питон и расширить $A$ рандомно. Работает $7$ раз от сложности $a^b \mod c$.}
+\codewithtext{Primitive Root}{nt/primitive.cpp}{Число $g$ первообразный корень по модулю $n$, если все его степени по модулю $n$ пробегают по всем числам, взаимно простым с $n$. В частности, для простого $n$ степени первообразного корня пробегают по всем числам от $1$ до $n - 1$. работает за $O(Ans \cdot \log \phi(n) \log n)$, где $Ans$ - значение искомого первообразного корня.}
 \code{Xor basis}{nt/xor-basis.cpp}
-\codewithtext{Discrete Root}{nt/discrete\_root.cpp}{Найти все $x$: $x^k \equiv a\; (\text{mod}\;n)$}  %пусть болтается
-\codewithtext{Discrete log}{nt/discreteLog.cpp}{$a^x \equiv  b\; (\text{mod}\;m)$}
+\codewithtext{Discrete Root}{nt/discrete\_root.cpp}{Найти все $x$: $x^k \equiv a\; (\text{mod}\;n)$. $O(\sqrt m \log(m))$}  %пусть болтается
+\codewithtext{Discrete log}{nt/discreteLog.cpp}{$a^x \equiv  b\; (\text{mod}\;m)$. $O(\sqrt m \log(m))$}
 \codewithtext{Diophantine Equations}{nt/diophantine.cpp}{solutions to $ax + by = c$ where $x \in [xlow, xhigh]$ and $y \in [ylow, yhigh]$; returns \{cnt, leftsol, rightsol, gcd of a and b\}}
 \tex{Stern-Brocot Tree}{nt/sternBrocot.tex}
 \codewithtext{Lattice Points Below Line}{nt/lattice\_points.cpp}{Number of integer points $(x;y)$ such for $0 \leq x < n$ and $0 < y \leq \lfloor k x+b\rfloor$}
@@ -176,7 +183,7 @@ literate={\ \ }{{\ }}1
 {Находит мин разрез в неориентированном взвешенном графе. Работает за $O(nm)$.}
 \code{Hungarian Algorithm}{flows/hungarian.cpp}
 % нужно написать че делает
-\code{Blossom Algorithm}{flows/blossom.cpp} 
+\codewithtext{Blossom Algorithm}{flows/blossom.cpp}{Находит максимальное паросочетание в произвольном графе. $O(n^3)$}
 %нужно добавить задачу про проекты и инструменты
 
 
