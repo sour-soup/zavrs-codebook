@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "vector": "cpp",
-        "string": "cpp",
-        "random": "cpp",
-        "deque": "cpp",
-        "tuple": "cpp"
-    }
-}
